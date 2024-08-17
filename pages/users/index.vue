@@ -1,20 +1,20 @@
 <template>
-    <div v-if="users">
-        <!-- useFetchメソッドでusersというオブジェクトにJSONが格納されているので、それを出力している-->
+    <div v-if="!users && !error">読み込んでいます...</div>
+    <div v-else-if="error">Error: {{ error.message }}</div>
+    <div v-else>
         <!-- <pre>{{ JSON.stringify(users, null, 2) }}</pre> -->
-        <NDataTable remote :data="users" :colums="colums" />
+        <NDataTable remote :data="users" :columns="columns" />
+        <span>test</span>
     </div>
 </template>
 
 <script setup lang="ts">
 import { NDataTable, type DataTableColumn } from "naive-ui";
 import type { User } from "~/models/user";
-const { data: users } = useFetch<User[]>('https://jsonplaceholder.typicode.com/users')
+import { computed } from 'vue';
+const { data: users, error } = useFetch<User[]>('https://jsonplaceholder.typicode.com/users');
 
-
-import type { DataTableColumns } from 'naive-ui'
-
-const colums = computed<DataTableColumns<User>>(() => [
+const columns = computed<DataTableColumn<User>[]>(() => [
     {
         key: 'id',
         title: 'ID',
@@ -35,7 +35,5 @@ const colums = computed<DataTableColumns<User>>(() => [
         title: 'ウェブサイト',
         render: (row) => row.website,
     }
-])
+]);
 </script>
-
-//id name user website
