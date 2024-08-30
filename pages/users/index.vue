@@ -21,7 +21,10 @@
 import { NButton, NDataTable, type DataTableColumn } from "naive-ui";
 import type { User } from "~/models/user";
 import { computed } from 'vue';
-const { data: users, error } = useFetch<User[]>('https://jsonplaceholder.typicode.com/users');
+
+const api = useApi()
+const { data: users, error} = useAsyncData<User[]>(() => api('/users'))
+//const { data: users, error } = useFetch<User[]>('https://jsonplaceholder.typicode.com/users');
 
 const columns = computed<DataTableColumn<User>[]>(() => [
     {

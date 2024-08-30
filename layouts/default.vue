@@ -2,7 +2,7 @@
   <n-layout has-sider class="min-h-screen">
     <!-- サイドナビゲーション -->
     <n-layout-sider bordered class="min-h-screen">
-        <NMenu :options="menuOptions" />
+        <n-menu :options="menuOptions" />
     </n-layout-sider>
  
     <!-- メインコンテンツ -->

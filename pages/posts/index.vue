@@ -19,7 +19,10 @@
 
 import type { Post } from "~/models/post";
 import { NButton, NDataTable, type DataTableColumn } from "naive-ui";
-const { data: posts, error } = useFetch<Post[]>('https://jsonplaceholder.typicode.com/posts');
+
+const api = useApi()
+const { data: posts, error} = useAsyncData<Post[]>(() => api('/posts'))
+//const { data: posts, error } = useFetch<Post[]>('https://jsonplaceholder.typicode.com/posts');
 
 const columns =  computed<DataTableColumn<Post>[]>(() => [
     {
