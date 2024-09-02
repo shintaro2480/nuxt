@@ -20,7 +20,7 @@ export default defineNuxtConfig({
     plugins: [
       Components({
         resolvers: [
-          ElementPlusResolver(),
+          NaiveUiResolver(),
         
         ],
         dts: true,
