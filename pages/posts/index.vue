@@ -4,10 +4,10 @@
         <div v-else-if="error">Error: {{ error.message }}</div>
         <div v-else>
             <!-- <pre>{{ JSON.stringify(users, null, 2) }}</pre> -->
-                <div class="flex items-center justify-between mb-4">
-                    <span class="text-[24px] font-bold">投稿一覧</span>
-                </div>
-             
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-[24px] font-bold">投稿一覧</span>
+            </div>
+
             <NDataTable remote :data="posts" :columns="columns" />
             <span class="py-[30px] block">test</span>
         </div>
@@ -20,11 +20,15 @@
 import type { Post } from "~/models/post";
 import { NButton, NDataTable, type DataTableColumn } from "naive-ui";
 
+definePageMeta({
+    requiresAuth: true
+})
+
 const api = useApi()
-const { data: posts, error} = useAsyncData<Post[]>(() => api('/posts'))
+const { data: posts, error } = useAsyncData<Post[]>(() => api('/posts'))
 //const { data: posts, error } = useFetch<Post[]>('https://jsonplaceholder.typicode.com/posts');
 
-const columns =  computed<DataTableColumn<Post>[]>(() => [
+const columns = computed<DataTableColumn<Post>[]>(() => [
     {
         key: 'id',
         title: 'ID',

@@ -5,5 +5,14 @@
 </template>
 
 <script setup lang="ts">
-import {NButton} from 'naive-ui';
+import { NButton } from 'naive-ui';
+
+definePageMeta({
+    requiresAuth: true
+})
+
+const router = useRouter()
+
+onMounted(() => router.push('/users'))
+
 </script>

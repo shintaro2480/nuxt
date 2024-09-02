@@ -18,7 +18,8 @@
 <script setup lang="ts">
 
 import type { User } from "~/models/user";
-import { NForm, NFormItem, NInput, NButton, type FormInst, type FormRules } from 'naive-ui'
+import { NForm, NFormItem, NInput, NButton, type FormInst, type FormRules } from 'naive-ui';
+import { useAuthStore } from '~/stores/auth'
 
 definePageMeta({
     layout: 'static',
@@ -52,7 +53,10 @@ const rules: FormRules = {
 
 }
 
+//共通のURIを使う
 const api = useApi();
+const router = useRouter();
+const authStore = useAuthStore();
 
 const login = async () => {
     // console.log(formValue.value)
@@ -60,8 +64,11 @@ const login = async () => {
         //console.log(formValue.value.id);
         //await formRef.value?.validate()
         //console.log(formValue.value);
-        const res = await api<User>(`/users/${formValue.value.id}`)
-        console.log(res);
+        const res = await api<User>(`/users/${formValue.value.id}`);
+        authStore.setUser(res);
+
+        router.push('/');
+        //console.log(res);
     } catch (error) {
         console.error(error);
     }

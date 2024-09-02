@@ -4,13 +4,13 @@
         <div v-else-if="error">Error: {{ error.message }}</div>
         <div v-else>
             <!-- <pre>{{ JSON.stringify(users, null, 2) }}</pre> -->
-                <div class="flex items-center justify-between mb-4">
-                    <span class="text-[24px] font-bold">ユーザー一覧</span>
-                    <n-button @click="router.push('/users/new');">
-                        <span class="text-[14px]">新規登録</span>
-                    </n-button>
-                </div>
-             
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-[24px] font-bold">ユーザー一覧</span>
+                <n-button @click="router.push('/users/new');">
+                    <span class="text-[14px]">新規登録</span>
+                </n-button>
+            </div>
+
             <NDataTable remote :data="users" :columns="columns" />
             <span class="py-[30px] block">test</span>
         </div>
@@ -22,8 +22,12 @@ import { NButton, NDataTable, type DataTableColumn } from "naive-ui";
 import type { User } from "~/models/user";
 import { computed } from 'vue';
 
+definePageMeta({
+    requiresAuth: true
+})
+
 const api = useApi()
-const { data: users, error} = useAsyncData<User[]>(() => api('/users'))
+const { data: users, error } = useAsyncData<User[]>(() => api('/users'))
 //const { data: users, error } = useFetch<User[]>('https://jsonplaceholder.typicode.com/users');
 
 const columns = computed<DataTableColumn<User>[]>(() => [
