@@ -8,8 +8,11 @@
                 <span class="text-[24px] font-bold">投稿一覧</span>
             </div>
 
-            <NDataTable remote :data="posts" :columns="columns" />
-            <span class="py-[30px] block">test</span>
+            <!--<NDataTable remote :data="posts" :columns="columns" />-->
+            <AtomsDataTable v-if="posts" :data="posts" :columns="columns"
+                @select="router.push(`/posts/${$event.id}`)" />
+
+
         </div>
     </div>
 </template>
@@ -25,6 +28,8 @@ definePageMeta({
 })
 
 const api = useApi()
+const router = useRouter();
+
 const { data: posts, error } = useAsyncData<Post[]>(() => api('/posts'))
 //const { data: posts, error } = useFetch<Post[]>('https://jsonplaceholder.typicode.com/posts');
 

@@ -11,7 +11,9 @@
                 </n-button>
             </div>
 
-            <NDataTable remote :data="users" :columns="columns" />
+            <!--<NDataTable remote :data="users" :columns="columns" :row-props="rowProps" />-->
+            <AtomsDataTable v-if="users" :data="users" :columns="columns"
+                @select="router.push(`/users/${$event.id}`)" />
             <span class="py-[30px] block">test</span>
         </div>
     </div>
@@ -27,8 +29,22 @@ definePageMeta({
 })
 
 const api = useApi()
+const router = useRouter()
 const { data: users, error } = useAsyncData<User[]>(() => api('/users'))
+import type { HTMLAttributes } from "vue";
 //const { data: users, error } = useFetch<User[]>('https://jsonplaceholder.typicode.com/users');
+
+//テーブル内のリンクを用意。rowPropsは、naiveUIのNDataTableで使える属性のひとつ
+
+/*
+const rowProps: (row: User) => HTMLAttributes = (row) => ({
+    style: {
+        cursor: 'pointer'
+    },
+    //[id]ディレクトリに用意したページに飛ばす
+    onClick: () => router.push(`/users/${row.id}`),
+})
+    */
 
 const columns = computed<DataTableColumn<User>[]>(() => [
     {
@@ -52,7 +68,5 @@ const columns = computed<DataTableColumn<User>[]>(() => [
         render: (row) => row.website,
     }
 ]);
-
-const router = useRouter();
 
 </script>
