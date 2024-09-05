@@ -5,11 +5,12 @@
     <div class="flex flex-row items-center justify-between">
       <span class="text-[24px] font-bold">{{ user?.name }}</span>
       <div class="flex flex-row items-center gap-[12px]">
-        <NButton>
+
+        <NButton @click="router.push(`/users/${user?.id}/edit`)">
           <span class="text-14px]">編集</span>
         </NButton>
         <NButton>
-          <span class="text-14px]">編集</span>
+          <span class="text-14px]">削除</span>
         </NButton>
       </div>
     </div>
@@ -40,6 +41,7 @@ import type { User } from "~/models/user";
 const api = useApi();
 //現在のルート情報からidを取得したいので、vue routerから提供されるuseRoute()を使う。これでroute.param.id...のように取得できる
 const route = useRoute();
+const router = useRouter();
 
 //ようはURLがusers/"3(id)"である場合、route.params.idによって3を取得してそれをstring文字列でuserIdに保存する
 const userId = computed<string>(() =>

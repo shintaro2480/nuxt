@@ -14,7 +14,7 @@
             <!--<NDataTable remote :data="users" :columns="columns" :row-props="rowProps" />-->
             <AtomsDataTable v-if="users" :data="users" :columns="columns"
                 @select="router.push(`/users/${$event.id}`)" />
-            <span class="py-[30px] block">test</span>
+
         </div>
     </div>
 </template>
