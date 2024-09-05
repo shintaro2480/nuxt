@@ -20,8 +20,12 @@
       <NTabPane name="posts">
         <SectionUserPosts :user="user"></SectionUserPosts>
       </NTabPane>
-      <NTabPane name="albums"></NTabPane>
-      <NTabPane name="todos"></NTabPane>
+      <NTabPane name="albums">
+        <SectionUserAlbums :user="user"></SectionUserAlbums>
+      </NTabPane>
+      <NTabPane name="todos">
+        <SectionUserTodos :user="user"></SectionUserTodos>
+      </NTabPane>
     </NTabs>
   </div>
 </template>
